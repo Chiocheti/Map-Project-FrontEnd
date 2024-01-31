@@ -1,0 +1,40 @@
+@media screen and (max-width: 576px) {
+  .box_block {
+    flex-direction: column;
+  }
+}
+
+.All {
+  background-color: #bdc8d4;
+  padding: 1rem;
+  border-radius: 5px;
+  width: 100%;
+  overflow: 100%;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  gap: 1rem;
+}
+
+.box_block {
+  /* border: 1px solid red; */
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.box_block > div.box_x1 {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.box_block > div.box_x2 {
+  flex: 2;
+  width: 100%;
+}
+
+.box_block > div.box_x3 {
+  flex: 3;
+  width: 100%;
+}

@@ -1,0 +1,166 @@
+:root {
+  --color-white: #ffffff;
+  --color-red: #e63636;
+  --color-dark1: #0a1929;
+  --color-dark2: #bdc8d4;
+  --color-purple1: #ac78e9;
+  --color-purple2: rgb(50, 14, 75);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  /* tipo de font */
+  background-color: var(--color-dark1);
+  /* cor do fundo da pagina */
+  color: var(--color-purple2);
+  /* cor do texto na div principal */
+  display: flex;
+  /* ajuste da div externa */
+  /* "floats" ajusta a div externa no limite da pagina*/
+  justify-content: center;
+  /* alinhamento da div principal */
+  align-items: center;
+  margin-top: 100px;
+  /* margem da div principal com o topo */
+}
+
+.content {
+  background-color: var(--color-dark2);
+  /* cor da div principal */
+  padding: 1rem;
+  /* margem entre a div principal e os campos */
+  border-radius: 5px;
+  /* bordas da div principal */
+  width: 100%;
+  /* tamanho da ocupacao da div principal no navegador */
+  overflow: 100%;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+  /* margem do texto de cabecalho */
+  text-align: center;
+  /* alinhamento do texto de cabecalho */
+}
+
+h2 {
+  padding-top: 1rem;
+  text-align: center;
+}
+
+.content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.box-select {
+  /* border: 1px solid red; */
+  display: flex;
+  justify-items: normal;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.box-select > div.box-x1 {
+  flex: 1;
+  width: 100%;
+}
+
+.box-select > div.box-x2 {
+  flex: 2;
+  width: 100%;
+}
+
+.box-select > div.box-x3 {
+  flex: 3;
+  width: 100%;
+}
+
+@media screen and (max-width: 576px) {
+  .box-select {
+    flex-direction: column;
+  }
+}
+
+.Second {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.Back {
+  background-color: #92a3b5;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.Navbar {
+  vertical-align: middle;
+  justify-content: center;
+  background-color: #9264b7;
+  align-items: center;
+  justify-content: stretch;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.NavbarContent {
+  vertical-align: middle;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.Flex {
+  display: flex;
+}
+
+.Save {
+  margin-right: 10px;
+  padding: 1rem;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background-color: #7a5499;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.Save:hover {
+  background-color: var(--color-purple1);
+}
+
+.UserName {
+  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 1rem;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background-color: #7a5499;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.UserName:hover {
+  background-color: var(--color-purple1);
+}
