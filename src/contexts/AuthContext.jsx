@@ -7,24 +7,20 @@ import { api } from '../services/api';
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [tokens, setTokens] = useState(null);
   const [user, setUser] = useState(null);
+  const [client, setClient] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const data = Cookies.get('Ecrm@auth');
-    const sessionData = sessionStorage.getItem('Ecrm@auth');
+    const data = Cookies.get('user@auth');
+    const sessionData = sessionStorage.getItem('user@auth');
 
     if (data || sessionData) {
       const parsedData = JSON.parse(data || sessionData);
 
       setUser(parsedData.user);
-      setTokens({
-        accessToken: parsedData.accessToken,
-        refreshToken: parsedData.refreshToken,
-      });
 
       if (!sessionData) sessionStorage.setItem('Ecrm@auth', JSON.stringify(data));
     }
@@ -38,10 +34,7 @@ export function AuthProvider({ children }) {
         const { data } = await api.post('login', { username, password });
 
         setUser(data.user);
-        setTokens({
-          accessToken: data.accessToken,
-          refreshToken: data.refreshToken,
-        });
+
         sessionStorage.setItem('Ecrm@auth', JSON.stringify(data));
 
         if (keepSigned) {
@@ -93,39 +86,45 @@ export function AuthProvider({ children }) {
     [navigate],
   );
 
+  const clientLogin = useCallback(
+    async (name, cpf) => {
+      const data = { name, cpf };
+      setClient(data);
+
+      sessionStorage.setItem('MapingClient@auth', JSON.stringify(data));
+
+      navigate('/saveMarket');
+    },
+    [navigate],
+  );
+  const clientLogout = useCallback(async () => {
+    setClient(null);
+
+    sessionStorage.removeItem('MapingClient@auth');
+
+    navigate('/');
+  }, [navigate]);
+
   const logout = useCallback(async () => {
-    try {
-      await api.put(
-        'logout',
-        { userId: user.id },
-        {
-          headers: {
-            'x-access-token': tokens.accessToken,
-          },
-        },
-      );
+    setUser(null);
 
-      setUser(null);
-      setTokens(null);
+    sessionStorage.removeItem('Ecrm@auth');
+    Cookies.remove('Ecrm@auth');
 
-      sessionStorage.removeItem('Ecrm@auth');
-      Cookies.remove('Ecrm@auth');
-
-      navigate('/');
-    } catch (error) {
-      throw new Error(error.response.data.error || error);
-    }
-  }, [navigate, tokens]); // eslint-disable-line
+    navigate('/');
+  }, [navigate]); // eslint-disable-line
 
   const contextValue = useMemo(
     () => ({
       login,
       logout,
-      tokens,
+      clientLogin,
+      clientLogout,
+      client,
       user,
       isLoading,
     }),
-    [login, logout, tokens, user, isLoading],
+    [login, logout, clientLogin, clientLogout, client, user, isLoading],
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
